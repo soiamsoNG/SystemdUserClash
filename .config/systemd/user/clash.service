@@ -1,0 +1,10 @@
+[Unit]
+Description=Clash Local
+
+[Service]
+Restart=always
+ExecStartPre=/bin/sh -c 'until ping -c1 aliyun.com; do sleep 1; done;'
+ExecStart=%h/bin/clash-linux-amd64
+
+[Install]
+WantedBy=default.target

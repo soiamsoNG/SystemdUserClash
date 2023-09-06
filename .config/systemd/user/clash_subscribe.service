@@ -1,0 +1,5 @@
+[Unit]
+Description=Update the clash config
+
+[Service]
+ExecStart=%h/bin/clash-subscribe.sh -w
