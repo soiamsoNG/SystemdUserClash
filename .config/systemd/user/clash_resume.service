@@ -1,6 +1,5 @@
 [Unit]
 Description=Restart Clash after resume
-Requires=clash.service
 After=clash.service
 
 [Service]
@@ -8,4 +7,4 @@ Restart=always
 ExecStart=%h/bin/clash-resume.sh
 
 [Install]
-WantedBy=default.target
+WantedBy=clash.service
