@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# 订阅链接地址
-SUBSCRIBE="https://www.example.com/api/v1/client/subscribe?token=example&flag=clash"
+# 订阅链接地址 SUBSCRIBE
 
 CLASH_CONFIG="$HOME/.config/clash/config.yaml"
 
