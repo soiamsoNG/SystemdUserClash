@@ -1,14 +1,34 @@
 #!/usr/bin/env bash
 
+set -me
+
+BLOCK=$(mktemp)
+echo false > $BLOCK
+
 while true; do
-    dbus-monitor --system "type='signal',path='/org/freedesktop/login1',interface='org.freedesktop.login1.Manager',member=PrepareForSleep" 2>/dev/null |
+    gdbus monitor -y -d org.freedesktop.login1 2>/dev/null |
     while read -r sign; do
         case "$sign" in
-            *"boolean false"*)
-                echo "Restarting Clash Service"
-                systemctl --user --no-block restart clash.service
+            *PrepareForSleep*false*)
+                echo "get wake up signal"
+                ;&
+            *LockedHint*false*)
+                if [ $(cat $BLOCK) == false ]; then
+                    echo "get unlock signal"
+                    echo true > $BLOCK
+                    (sleep 30; echo false > $BLOCK) &
+                    echo "Restart clash.service"
+                    systemctl --user --no-block restart clash.service
+                else
+                    echo "block too often trigger restart"
+                fi
                 ;;
-            *"boolean true"*)   echo "Before Sleep";;
+            *PrepareForSleep*true*)
+                echo "get sleep signal"
+                ;;
+            *LockedHint*true*)
+                echo "get lock signal"
+                ;;
         esac
     done
 done
