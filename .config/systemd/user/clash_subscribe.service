@@ -2,4 +2,5 @@
 Description=Update the clash config
 
 [Service]
+EnvironmentFile=%h/.config/clash/subscribe_url.txt
 ExecStart=%h/bin/clash-subscribe.sh -w
