@@ -7,10 +7,9 @@
 复制到 $HOME
 
 
-在 $HOME/bin/calsh-subscribe.sh 修改订阅链接地址
+在 $HOME/.config/clash/subscribe_url.txt 中配置订阅地址
 
 ```bash
-# 订阅链接地址
 SUBSCRIBE="https://www.example.com/api/v1/client/subscribe?token=example&flag=clash"
 ```
 
